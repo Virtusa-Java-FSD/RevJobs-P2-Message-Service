@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MessageDTO {
-    private Long id;
+    private String id; // MongoDB uses String IDs
     private Long senderId;
     private Long receiverId;
     private String content;
@@ -18,4 +18,3 @@ public class MessageDTO {
     private LocalDateTime sentAt;
     private Long applicationId;
 }
-

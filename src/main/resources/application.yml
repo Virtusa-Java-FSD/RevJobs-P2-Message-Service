@@ -2,15 +2,9 @@ server:
   port: 8084
 
 spring:
-  datasource:
-    url: jdbc:mysql://localhost:3306/revjobs_messages?createDatabaseIfNotExist=true
-    username: root
-    password: Vishnu@123
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
+  data:
+    mongodb:
+      uri: mongodb+srv://revjobs_admin:Vishnu%40123@revjobs-cluster.lyip45g.mongodb.net/revjobs_messages?retryWrites=true&w=majority&appName=revjobs-cluster
   application:
     name: message-service
 
