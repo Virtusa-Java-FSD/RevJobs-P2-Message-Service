@@ -24,17 +24,16 @@ public class MessageService {
     @Transactional
     public Message sendMessage(Message message) {
         log.info("Sending message from {} to {}", message.getSenderId(), message.getReceiverId());
-        
+
         Message saved = messageRepository.save(message);
-        
+
         // Send real-time notification via WebSocket
         MessageDTO dto = convertToDTO(saved);
         messagingTemplate.convertAndSendToUser(
                 message.getReceiverId().toString(),
                 "/queue/messages",
-                dto
-        );
-        
+                dto);
+
         return saved;
     }
 
@@ -56,10 +55,10 @@ public class MessageService {
     }
 
     @Transactional
-    public Message markAsRead(Long messageId) {
+    public Message markAsRead(String messageId) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new ResourceNotFoundException("Message not found"));
-        
+
         message.setIsRead(true);
         return messageRepository.save(message);
     }
@@ -67,11 +66,11 @@ public class MessageService {
     @Transactional
     public void markConversationAsRead(Long userId, Long otherUserId) {
         List<Message> unreadMessages = messageRepository.findByReceiverIdAndIsReadFalse(userId);
-        
+
         unreadMessages.stream()
                 .filter(msg -> msg.getSenderId().equals(otherUserId))
                 .forEach(msg -> msg.setIsRead(true));
-        
+
         messageRepository.saveAll(unreadMessages);
     }
 
@@ -87,4 +86,3 @@ public class MessageService {
         return dto;
     }
 }
-

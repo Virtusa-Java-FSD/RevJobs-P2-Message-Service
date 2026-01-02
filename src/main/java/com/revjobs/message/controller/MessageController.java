@@ -27,7 +27,7 @@ public class MessageController {
     @RequestMapping("/messages")
     @RequiredArgsConstructor
     public static class MessageRestController {
-        
+
         private final MessageService messageService;
 
         @PostMapping
@@ -62,7 +62,7 @@ public class MessageController {
         }
 
         @PatchMapping("/{messageId}/read")
-        public ResponseEntity<ApiResponse<Message>> markAsRead(@PathVariable Long messageId) {
+        public ResponseEntity<ApiResponse<Message>> markAsRead(@PathVariable String messageId) {
             Message message = messageService.markAsRead(messageId);
             return ResponseEntity.ok(ApiResponse.success("Message marked as read", message));
         }
@@ -75,4 +75,3 @@ public class MessageController {
         }
     }
 }
-
