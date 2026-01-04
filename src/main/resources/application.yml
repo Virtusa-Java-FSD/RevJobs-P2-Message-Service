@@ -4,8 +4,7 @@ server:
 spring:
   data:
     mongodb:
-      # uri: mongodb+srv://revjobs_admin:Vishnu%40123@revjobs-cluster.lyip45g.mongodb.net/revjobs_messages?retryWrites=true&w=majority&appName=revjobs-cluster
-      uri: mongodb://localhost:27017/revjobs_messages
+      uri: ${MONGODB_URI:mongodb://localhost:27017/revjobs_messages}
   application:
     name: message-service
   jackson:
