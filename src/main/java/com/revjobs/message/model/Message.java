@@ -3,10 +3,12 @@ package com.revjobs.message.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.index.Indexed;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
 
 @Document(collection = "messages")
 @Data
@@ -27,17 +29,8 @@ public class Message {
     private Boolean isRead = false;
 
     @Indexed
-    private LocalDateTime sentAt;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSXXX")
+    private ZonedDateTime sentAt;
 
     private Long applicationId;
-
-    // Auto-set timestamp before saving
-    public void prePersist() {
-        if (sentAt == null) {
-            sentAt = LocalDateTime.now();
-        }
-        if (isRead == null) {
-            isRead = false;
-        }
-    }
 }

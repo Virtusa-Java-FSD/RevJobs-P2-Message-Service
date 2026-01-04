@@ -4,9 +4,15 @@ server:
 spring:
   data:
     mongodb:
-      uri: mongodb+srv://revjobs_admin:Vishnu%40123@revjobs-cluster.lyip45g.mongodb.net/revjobs_messages?retryWrites=true&w=majority&appName=revjobs-cluster
+      # uri: mongodb+srv://revjobs_admin:Vishnu%40123@revjobs-cluster.lyip45g.mongodb.net/revjobs_messages?retryWrites=true&w=majority&appName=revjobs-cluster
+      uri: mongodb://localhost:27017/revjobs_messages
   application:
     name: message-service
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+    time-zone: UTC
+    date-format: yyyy-MM-dd'T'HH:mm:ss.SSSXXX
 
 eureka:
   client:
